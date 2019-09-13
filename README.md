@@ -49,11 +49,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/nebula
 
 ## Testing
 
-```
-cd spec/faked_project
-bundle exec rspec spec
-cat tmp/reverse_coverage.yml
-```
+`bundle exec rspec`
 
 ## License
 

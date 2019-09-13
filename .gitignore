@@ -1,6 +1,7 @@
 *.rbc
 capybara-*.html
 .rspec
+.rspec_status
 /log
 /tmp
 /db/*.sqlite3
@@ -47,3 +48,5 @@ bower.json
 # Ignore node_modules
 node_modules/
 
+# Others
+spec/faked_project/tmp/reverse_coverage.yml

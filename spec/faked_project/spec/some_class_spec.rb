@@ -1,13 +1,15 @@
-require "spec_helper"
+# frozen_string_literal: true
 
-describe SomeClass do
-  subject { SomeClass.new("foo") }
+require 'spec_helper'
 
-  it "should be reversible" do
-    expect(subject.reverse).to eq("oof")
+RSpec.describe SomeClass do
+  subject(:described_instance) { described_class.new('foo') }
+
+  it 'is reversible' do
+    expect(described_instance.reverse).to eq('oof')
   end
 
-  it "should compare with 'foo'" do
-    expect(subject.compare_with("foo")).to be true
+  it 'compares with \'foo\'' do
+    expect(described_instance.compare_with('foo')).to be true
   end
 end

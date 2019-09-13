@@ -1,4 +1,6 @@
-require "bundler/setup"
+# frozen_string_literal: true
+
+require 'bundler/setup'
 
 require 'support/reverse_coverage'
-require "faked_project"
+require 'faked_project'

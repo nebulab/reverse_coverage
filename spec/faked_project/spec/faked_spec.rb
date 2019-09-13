@@ -1,11 +1,13 @@
-require "spec_helper"
+# frozen_string_literal: true
 
-describe FakedProject do
-  it "should return proper foo" do
-    expect(FakedProject.foo).to eq("bar")
+require 'spec_helper'
+
+RSpec.describe FakedProject do
+  it 'returns proper foo' do
+    expect(described_class.foo).to eq('bar')
   end
 
-  it "should test it's framework specific method" do
-    expect(FrameworkSpecific.rspec).to eq("Only tested in RSpec")
+  it 'tests it\'s framework specific method' do
+    expect(FrameworkSpecific.rspec).to eq('Only tested in RSpec')
   end
 end

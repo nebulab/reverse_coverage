@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SomeClass
   attr_reader :label
   attr_accessor :some_attr
@@ -11,18 +13,16 @@ class SomeClass
   end
 
   def compare_with(item)
-    if item == label
-      return true
-    else
-      raise "Item does not match label"
-    end
-  rescue
+    raise 'Item does not match label' unless item == label
+
+    true
+  rescue StandardError
     false
   end
 
-private
+  private
 
   def uncovered
-    "private method"
+    'private method'
   end
 end
