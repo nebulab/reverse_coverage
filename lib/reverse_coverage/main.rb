@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 Coverage.start
 
@@ -40,6 +41,16 @@ module ReverseCoverage
         results = @coverage_matrix.sort.map { |k, v| [k, v.sort.to_h] }.to_h
 
         f.write results.to_yaml
+      end
+    end
+
+    class << self
+      def method_missing(method, *args, &block)
+        instance.respond_to?(method) ? instance.send(method, *args, &block) : super
+      end
+
+      def respond_to_missing?(method, include_private = false)
+        instance.respond_to?(method) || super
       end
     end
 
