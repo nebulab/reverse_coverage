@@ -51,3 +51,5 @@ node_modules/
 
 # Others
 spec/faked_project/tmp/reverse_coverage.yml
+
+tmp/
