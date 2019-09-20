@@ -7,6 +7,7 @@ module ReverseCoverage
     include Singleton
 
     attr_reader :coverage_matrix
+    attr_accessor :config
 
     def initialize
       @coverage_matrix = {}
@@ -38,9 +39,6 @@ module ReverseCoverage
       changes
     end
 
-    def config(option, value)
-      @config[option] = value
-    end
 
     def start
       @last_state = select_project_files(Coverage.peek_result)
