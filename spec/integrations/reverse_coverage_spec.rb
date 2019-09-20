@@ -44,4 +44,30 @@ RSpec.describe ReverseCoverage do
       end
     end
   end
+
+  describe '#reset_last_state' do
+    subject(:described_method) { reverse_coverage.reset_last_state }
+
+    before do
+      reverse_coverage.config[:file_filter] = ->(file_path) { file_path.include? 'faked_project' }
+      reverse_coverage.start
+      require_relative '../../spec/faked_project/lib/faked_project.rb'
+    end
+
+    it 'returns only the lines executed after reset' do |e|
+      SomeClass.new('foo').reverse
+      diff = reverse_coverage.add(e)
+
+      key = diff.keys.detect { |file_path| file_path.end_with?('/some_class.rb') }
+      expect(diff).to match(hash_including(key => hash_including(7, 11)))
+
+      described_method
+
+      SomeClass.new('FOO').downcase
+      diff = reverse_coverage.add(e)
+      key = diff.keys.detect { |file_path| file_path.end_with?('/some_class.rb') }
+      expect(diff).to match(hash_including(key => hash_including(7, 15)))
+      expect(diff).not_to match(hash_including(key => hash_including(11)))
+    end
+  end
 end

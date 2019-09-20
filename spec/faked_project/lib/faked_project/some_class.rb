@@ -12,6 +12,10 @@ class SomeClass
     label.reverse
   end
 
+  def downcase
+    label.downcase
+  end
+
   def compare_with(item)
     raise 'Item does not match label' unless item == label
 

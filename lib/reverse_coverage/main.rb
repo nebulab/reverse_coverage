@@ -35,13 +35,16 @@ module ReverseCoverage
         end
       end
 
-      @last_state = current_state
+      reset_last_state
       changes
     end
 
+    def reset_last_state(result = Coverage.peek_result)
+      @last_state = select_project_files(result)
+    end
 
     def start
-      @last_state = select_project_files(Coverage.peek_result)
+      reset_last_state
     end
 
     def save_results(path = 'tmp/reverse_coverage.yml')
