@@ -12,7 +12,9 @@ module ReverseCoverage
       @coverage_matrix = {}
     end
 
-    def add(coverage_result, example)
+    def add(example)
+      coverage_result = Coverage.peek_result
+
       example_data = example.metadata.extract!(*example_attributes)
 
       current_state = select_project_files(coverage_result)
@@ -32,8 +34,8 @@ module ReverseCoverage
       @last_state = current_state
     end
 
-    def start(coverage_result)
-      @last_state = select_project_files(coverage_result)
+    def start
+      @last_state = select_project_files(Coverage.peek_result)
     end
 
     def save_results(path = 'tmp/reverse_coverage.yml')
