@@ -10,7 +10,6 @@ module ReverseCoverage
     attr_accessor :config
 
     def initialize
-      @coverage_matrix = {}
       @config = {
         file_filter: ->(file_path) { file_of_project?(file_path) }
       }
@@ -44,6 +43,7 @@ module ReverseCoverage
     end
 
     def start
+      @coverage_matrix = {}
       reset_last_state
     end
 

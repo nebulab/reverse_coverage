@@ -70,4 +70,25 @@ RSpec.describe ReverseCoverage do
       expect(diff).not_to match(hash_including(key => hash_including(11)))
     end
   end
+
+  describe '#start' do
+    subject(:described_method) { reverse_coverage.start }
+
+    before do
+      reverse_coverage.config[:file_filter] = ->(file_path) { file_path.include? 'faked_project' }
+      reverse_coverage.start
+      require_relative '../../spec/faked_project/lib/faked_project.rb'
+    end
+
+    it 'resets the coverage_matrix' do |e|
+      SomeClass.new('foo').reverse
+      reverse_coverage.add(e)
+
+      expect(reverse_coverage.coverage_matrix).not_to be_empty
+
+      described_method
+
+      expect(reverse_coverage.coverage_matrix).to be_empty
+    end
+  end
 end
