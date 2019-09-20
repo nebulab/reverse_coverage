@@ -29,7 +29,6 @@ module ReverseCoverage
           coverage_matrix[file_path][line_index] << example_data
         end
       end
-
       @last_state = current_state
     end
 
@@ -45,7 +44,6 @@ module ReverseCoverage
       Coverage.result # NOTE: disables coverage measurement
       File.open(path, 'w') do |f|
         results = @coverage_matrix.sort.map { |k, v| [k, v.sort.to_h] }.to_h
-
         f.write results.to_yaml
       end
     end

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 Given /^I want to keep stuff simple$/ do
-  expect(1).to eq(1)
+  expect(2 - 1).to eq(1)
 end
 
 When /^I write my cukes for the fake project$/ do
-  expect(1).to eq(1)
+  expect(4 / 4).to eq(1)
 end
 
 Then /^I make all necessary tests in a single step$/ do

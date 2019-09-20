@@ -1,6 +1,8 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem "reverse_coverage", :path => "../../../"
-gem "rake"
-gem "rspec", ">= 2.6.0"
-gem "cucumber"
+source 'https://rubygems.org'
+
+gem 'cucumber'
+gem 'rake'
+gem 'reverse_coverage', path: '../../../'
+gem 'rspec', '>= 2.6.0'
