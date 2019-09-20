@@ -10,6 +10,7 @@ module ReverseCoverage
 
     def initialize
       @coverage_matrix = {}
+      @block_file_of_project = nil
     end
 
     def add(example) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -34,8 +35,9 @@ module ReverseCoverage
       @last_state = current_state
     end
 
-    def start
+    def start(&block)
       @last_state = select_project_files(Coverage.peek_result)
+      @block_file_of_project = block
     end
 
     def save_results(path = 'tmp/reverse_coverage.yml')
@@ -73,7 +75,11 @@ module ReverseCoverage
     end
 
     def select_project_files(coverage_result)
-      coverage_result.select { |file_path, _lines| file_of_project?(file_path) }
+      if @block_file_of_project
+        coverage_result.select { |file_path, _lines| @block_file_of_project.call(file_path) }
+      else
+        coverage_result.select { |file_path, _lines| file_of_project?(file_path) }
+      end
     end
 
     def file_of_project?(file_path)
