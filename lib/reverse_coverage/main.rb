@@ -20,16 +20,22 @@ module ReverseCoverage
       example_data = slice_attributes(example.metadata, *example_attributes)
       current_state = select_project_files(coverage_result)
       all_changed_files = changed_lines(@last_state, current_state)
+
+      changes = {}
+
       all_changed_files.each do |file_path, lines|
         lines.each_with_index do |changed, line_index|
           next if changed.nil? || changed.zero?
 
-          coverage_matrix[file_path] ||= {}
-          coverage_matrix[file_path][line_index] ||= []
-          coverage_matrix[file_path][line_index] << example_data
+          file_info = { file_path: file_path, line_index: line_index }
+
+          save_changes(changes, example_data, file_info)
+          save_changes(coverage_matrix, example_data, file_info)
         end
       end
+
       @last_state = current_state
+      changes
     end
 
     def config(option, value)
@@ -59,6 +65,12 @@ module ReverseCoverage
     end
 
     private
+
+    def save_changes(hash, example_data, file_path:, line_index:)
+      hash[file_path] ||= {}
+      hash[file_path][line_index] ||= []
+      hash[file_path][line_index] << example_data
+    end
 
     def slice_attributes(hash, *keys)
       keys.each_with_object({}) { |k, new_hash| new_hash[k] = hash[k] if hash.key?(k) }
