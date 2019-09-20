@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require_relative 'helper'
 
 RSpec.describe SomeClass do
   subject(:described_instance) { described_class.new('foo') }
