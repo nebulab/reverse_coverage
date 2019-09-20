@@ -7,12 +7,13 @@ module ReverseCoverage
     include Singleton
 
     attr_reader :coverage_matrix
-    attr_accessor :config
+    attr_accessor :config, :output_path
 
     def initialize
       @config = {
         file_filter: ->(file_path) { file_of_project?(file_path) }
       }
+      @output_path = 'tmp'
     end
 
     def add(example)
@@ -47,8 +48,11 @@ module ReverseCoverage
       reset_last_state
     end
 
-    def save_results(path = 'tmp/reverse_coverage.yml')
+    def save_results(file_name: 'reverse_coverage.yml')
       result_and_stop_coverage
+      path = File.join(output_path, file_name)
+      FileUtils.mkdir_p(output_path)
+
       File.open(path, 'w') do |f|
         results = @coverage_matrix.sort.map { |k, v| [k, v.sort.to_h] }.to_h
         f.write results.to_yaml
