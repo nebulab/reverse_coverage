@@ -10,7 +10,9 @@ module ReverseCoverage
 
     def initialize
       @coverage_matrix = {}
-      @block_file_of_project = nil
+      @config = {
+        file_filter: ->(file_path) { file_of_project?(file_path) }
+      }
     end
 
     def add(example)
@@ -31,12 +33,16 @@ module ReverseCoverage
       @last_state = current_state
     end
 
-    def start(&block)
+    def config(option, value)
+      @config[option] = value
+    end
+
+    def start
       @last_state = select_project_files(Coverage.peek_result)
-      @block_file_of_project = block
     end
 
     def save_results(path = 'tmp/reverse_coverage.yml')
+      Coverage.result # NOTE: disables coverage measurement
       File.open(path, 'w') do |f|
         results = @coverage_matrix.sort.map { |k, v| [k, v.sort.to_h] }.to_h
 
@@ -71,11 +77,7 @@ module ReverseCoverage
     end
 
     def select_project_files(coverage_result)
-      if @block_file_of_project
-        coverage_result.select { |file_path, _lines| @block_file_of_project.call(file_path) }
-      else
-        coverage_result.select { |file_path, _lines| file_of_project?(file_path) }
-      end
+      coverage_result.select { |file_path, _lines| @config[:file_filter].call(file_path) }
     end
 
     def file_of_project?(file_path)

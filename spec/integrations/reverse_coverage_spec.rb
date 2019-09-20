@@ -16,14 +16,15 @@ RSpec.describe ReverseCoverage do
   end
 
   it 'checks if coverage_matrix is filled with SomeClass Data' do
+    # NOTE: by default 'spec' path is filtered out
     expect(main_instance.coverage_matrix).to be_empty
   end
 
   context 'when faked_project dir is included' do
     let(:start_reverse_coverage) do
-      main_instance.start do |file_path|
+      main_instance.config(:file_filter, ->(file_path) {
         file_path.include? 'faked_project'
-      end
+      })
     end
 
     it 'checks if coverage_matrix is filled with SomeClass Data' do
