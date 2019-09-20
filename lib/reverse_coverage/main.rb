@@ -47,11 +47,15 @@ module ReverseCoverage
     end
 
     def save_results(path = 'tmp/reverse_coverage.yml')
-      Coverage.result # NOTE: disables coverage measurement
+      result_and_stop_coverage
       File.open(path, 'w') do |f|
         results = @coverage_matrix.sort.map { |k, v| [k, v.sort.to_h] }.to_h
         f.write results.to_yaml
       end
+    end
+
+    def result_and_stop_coverage
+      Coverage.result
     end
 
     class << self
