@@ -2,6 +2,7 @@
 capybara-*.html
 .rspec
 .rspec_status
+.rubocop-*
 /log
 /tmp
 /db/*.sqlite3

@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe 'ReverseCoverage' do
-  subject { -> { expect(SomeClass.new('foo').reverse).to eq 'oof' } }
+RSpec.describe ReverseCoverage do
+  subject(:a_spec) { -> { expect(SomeClass.new('foo').reverse).to eq 'oof' } }
 
   let(:main_instance) { ReverseCoverage::Main.instance }
   let(:start_reverse_coverage) { main_instance.start }
@@ -11,9 +11,7 @@ RSpec.describe 'ReverseCoverage' do
   before do |e|
     start_reverse_coverage
     require_relative '../../spec/faked_project/lib/faked_project.rb'
-
-    subject.call
-
+    a_spec.call
     main_instance.add(e)
   end
 
@@ -22,11 +20,11 @@ RSpec.describe 'ReverseCoverage' do
   end
 
   context 'when faked_project dir is included' do
-    let(:start_reverse_coverage) {
+    let(:start_reverse_coverage) do
       main_instance.start do |file_path|
         file_path.include? 'faked_project'
       end
-    }
+    end
 
     it 'checks if coverage_matrix is filled with SomeClass Data' do
       expect(main_instance.coverage_matrix).not_to be_empty

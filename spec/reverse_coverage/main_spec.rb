@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ReverseCoverage::Main do
+RSpec.describe ReverseCoverage::Main, skip: 'Outdated spec! TODO: remove me' do
   subject(:described_instance) { described_class.instance }
 
   before do

@@ -1,0 +1,8 @@
+require:
+  - rubocop-rspec
+
+inherit_from:
+  - https://relaxed.ruby.style/rubocop.yml
+
+# Style/FrozenStringLiteralComment:
+#   Enabled: false

@@ -13,15 +13,11 @@ module ReverseCoverage
       @block_file_of_project = nil
     end
 
-    def add(example) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    def add(example)
       coverage_result = Coverage.peek_result
-
       example_data = slice_attributes(example.metadata, *example_attributes)
-
       current_state = select_project_files(coverage_result)
-
       all_changed_files = changed_lines(@last_state, current_state)
-
       all_changed_files.each do |file_path, lines|
         lines.each_with_index do |changed, line_index|
           next if changed.nil? || changed.zero?
