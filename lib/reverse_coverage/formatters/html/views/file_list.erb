@@ -1,37 +1,22 @@
 <div class="file_list_container" id="<%= title_id %>">
   <h2>
     <span class="group_name"><%= title %></span>
-    (<span class="covered_percent"><span class="<%#= coverage_css_class(source_files.covered_percent) %>"><%#= source_files.covered_percent.round(2) %>%</span></span>
-     covered at
-     <span class="covered_strength">
-       <span class="<%#= strength_css_class(source_files.covered_strength) %>">
-         <%#= source_files.covered_strength.round(2) %>
-       </span>
-    </span> hits/line)
   </h2>
   <a name="<%= title_id %>"></a>
   <table class="file_list">
     <thead>
       <tr>
         <th>File name</th>
-        <th>Lines</th>
-        <th>Relevant Lines</th>
         <th>Lines covered</th>
-        <th>Lines missed</th>
-        <th>Avg. Hits / Line</th>
+        <th>Lines examples</th>
       </tr>
     </thead>
     <tbody>
       <% source_files.each do |source_file| %>
-
       <tr>
         <td class="strong"><%= link_to_source_file(source_file) %></td>
-        <td class="<%#= coverage_css_class(source_file.covered_percent) %> strong"><%#= source_file.covered_percent.round(2).to_s %> %</td>
         <td><%= source_file[1].count %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><%#= source_file.covered_strength %></td>
+        <td><%= source_file[1].inject(0) { |old, val| old += val.count } %></td>
       </tr>
       <% end %>
     </tbody>

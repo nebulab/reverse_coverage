@@ -65,7 +65,13 @@ module ReverseCoverage
           grouped_files = []
 
           groups = {
-            'Libs' => %r{/lib\/faked_project\/}
+            'Controllers' => %r{/app/controllers},
+            'Channels' => %r{/app/channels},
+            'Models' => %r{/app/models},
+            'Mailers' => %r{/app/mailers},
+            'Helpers' => %r{/app/helpers},
+            'Jobs' => %r{/app/jobs|/app/workers},
+            'Libraries' => %r{/lib/}
           }
 
           groups.each do |name, filter|

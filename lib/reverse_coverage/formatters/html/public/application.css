@@ -779,10 +779,12 @@ td {
   border-color: black; }
 .source_table .skipped {
   border-color: #fc0; }
-.source_table .covered:nth-child(odd) {
-  background-color: #CDF2CD; }
-.source_table .covered:nth-child(even) {
-  background-color: #DBF2DB; }
+.source_table .covered {
+  cursor: pointer; }
+  .source_table .covered:nth-child(odd) {
+    background-color: #CDF2CD; }
+  .source_table .covered:nth-child(even) {
+    background-color: #DBF2DB; }
 .source_table .missed:nth-child(odd) {
   background-color: #F7C0C0; }
 .source_table .missed:nth-child(even) {
