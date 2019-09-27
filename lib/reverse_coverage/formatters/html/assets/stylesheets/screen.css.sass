@@ -199,6 +199,7 @@ td
   .skipped
     border-color: #fc0
   .covered
+    cursor: pointer
     &:nth-child(odd)
       background-color: #CDF2CD
     &:nth-child(even)
@@ -218,3 +219,14 @@ td
       background-color: #FBF0C0
     &:nth-child(even)
       background-color: #FBFfCf
+
+  .reverse_coverage
+    color: #222
+    display: none
+    >.example_data
+      &:nth-child(odd)
+        background-color: #FBF0C0
+      &:nth-child(even)
+        background-color: #FBFfCf
+      >.file_path
+        padding-left: 14px
