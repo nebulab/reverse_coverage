@@ -47,6 +47,10 @@ Run your specs, inspect the 'tmp/reverse_coverage.yml' file.
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/nebulab/reverse_coverage. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
+## Testing
+
+`bundle exec rspec`
+
 ## License
 
 ReverseCoverage is copyright © 2019 [Nebulab](http://nebulab.it/). It is free software, and may be redistributed under the terms specified in the [license](LICENSE.txt).

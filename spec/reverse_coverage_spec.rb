@@ -1,9 +1,7 @@
-RSpec.describe ReverseCoverage do
-  it "has a version number" do
-    expect(ReverseCoverage::VERSION).not_to be nil
-  end
+# frozen_string_literal: true
 
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+require 'spec_helper'
+
+RSpec.describe ReverseCoverage do
+  it { expect(described_class::VERSION).not_to be_nil }
 end

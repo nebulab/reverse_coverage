@@ -8,4 +8,5 @@
 
 require 'coverage'
 require 'singleton'
+require 'yaml'
 require_relative 'reverse_coverage/main'

@@ -7,43 +7,56 @@ module ReverseCoverage
     include Singleton
 
     attr_reader :coverage_matrix
+    attr_accessor :config
 
     def initialize
-      @coverage_matrix = {}
+      @config = {
+        file_filter: ->(file_path) { file_of_project?(file_path) }
+      }
     end
 
     def add(example)
       coverage_result = Coverage.peek_result
-
-      example_data = example.metadata.extract!(*example_attributes)
-
+      example_data = slice_attributes(example.metadata, *example_attributes)
       current_state = select_project_files(coverage_result)
-
       all_changed_files = changed_lines(@last_state, current_state)
+
+      changes = {}
 
       all_changed_files.each do |file_path, lines|
         lines.each_with_index do |changed, line_index|
-          next unless changed.present?
+          next if changed.nil? || changed.zero?
 
-          coverage_matrix[file_path] ||= {}
-          coverage_matrix[file_path][line_index] ||= []
-          coverage_matrix[file_path][line_index] << example_data
+          file_info = { file_path: file_path, line_index: line_index }
+
+          save_changes(changes, example_data, file_info)
+          save_changes(coverage_matrix, example_data, file_info)
         end
       end
 
-      @last_state = current_state
+      reset_last_state
+      changes
+    end
+
+    def reset_last_state(result = Coverage.peek_result)
+      @last_state = select_project_files(result)
     end
 
     def start
-      @last_state = select_project_files(Coverage.peek_result)
+      @coverage_matrix = {}
+      reset_last_state
     end
 
     def save_results(path = 'tmp/reverse_coverage.yml')
+      result_and_stop_coverage
       File.open(path, 'w') do |f|
         results = @coverage_matrix.sort.map { |k, v| [k, v.sort.to_h] }.to_h
-
         f.write results.to_yaml
       end
+    end
+
+    def result_and_stop_coverage
+      Coverage.result
     end
 
     class << self
@@ -58,6 +71,16 @@ module ReverseCoverage
 
     private
 
+    def save_changes(hash, example_data, file_path:, line_index:)
+      hash[file_path] ||= {}
+      hash[file_path][line_index] ||= []
+      hash[file_path][line_index] << example_data
+    end
+
+    def slice_attributes(hash, *keys)
+      keys.each_with_object({}) { |k, new_hash| new_hash[k] = hash[k] if hash.key?(k) }
+    end
+
     def changed_lines(prev_state, current_state)
       prev_state.merge(current_state) do |_file_path, prev_line, current_line|
         prev_line.zip(current_line).map { |values| values[0] == values[1] ? nil : (values[1] - values[0]) }
@@ -69,7 +92,7 @@ module ReverseCoverage
     end
 
     def select_project_files(coverage_result)
-      coverage_result.select { |file_path, _lines| file_of_project?(file_path) }
+      coverage_result.select { |file_path, _lines| @config[:file_filter].call(file_path) }
     end
 
     def file_of_project?(file_path)
