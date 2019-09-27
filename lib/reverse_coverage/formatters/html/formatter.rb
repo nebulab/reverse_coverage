@@ -5,6 +5,7 @@ require "cgi"
 require "fileutils"
 require "digest/sha1"
 require "time"
+require "json"
 
 module ReverseCoverage
   module Formatters

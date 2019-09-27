@@ -19,6 +19,7 @@ module ReverseCoverage
     def add(example)
       coverage_result = Coverage.peek_result
       example_data = slice_attributes(example.metadata, *example_attributes)
+      example_data[:example_ref] = example_data.hash
       current_state = select_project_files(coverage_result)
       all_changed_files = changed_lines(@last_state, current_state)
 

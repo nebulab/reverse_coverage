@@ -6,6 +6,10 @@
     <script src='<%= assets_path('application.js') %>' type='text/javascript'></script>
     <link href='<%= assets_path('application.css') %>' media='screen, projection, print' rel='stylesheet' type='text/css'>
     <link rel="icon" type="image/png" href="<%= assets_path('favicon.png') %>" />
+
+    <script>
+      window.examples = <%= result.flat_map { |_file_path, obj| obj.flat_map { |_line, examples| examples.map { |example| [example[:example_ref].to_s, example] } } }.to_h.to_json %>
+    </script>
   </head>
 
   <body>
