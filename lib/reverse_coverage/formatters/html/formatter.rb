@@ -128,7 +128,7 @@ module ReverseCoverage
         end
 
         def shortened_filename(source_file)
-          filename(source_file).sub(Dir.pwd, '.').gsub(/^\.\//, "")
+          filename(source_file).sub(Dir.pwd, '.').gsub(%r{^./}, "")
         end
 
         def link_to_source_file(source_file)

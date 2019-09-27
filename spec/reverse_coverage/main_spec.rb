@@ -3,8 +3,6 @@
 # require 'pry'
 # require 'rspec/core/rake_task'
 
-# rubocop:disable RSpec/MultipleExpectations
-
 require 'spec_helper'
 
 RSpec.describe ReverseCoverage::Main, skip: 'Outdated spec! TODO: remove me' do
@@ -41,5 +39,3 @@ RSpec.describe ReverseCoverage::Main, skip: 'Outdated spec! TODO: remove me' do
   #   end
   # end
 end
-
-# rubocop:enable RSpec/MultipleExpectations
