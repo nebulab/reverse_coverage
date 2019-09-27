@@ -1,0 +1,24 @@
+<div class="file_list_container" id="<%= title_id %>">
+  <h2>
+    <span class="group_name"><%= title %></span>
+  </h2>
+  <a name="<%= title_id %>"></a>
+  <table class="file_list">
+    <thead>
+      <tr>
+        <th>File name</th>
+        <th>Lines covered</th>
+        <th>Lines examples</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% source_files.each do |source_file| %>
+      <tr>
+        <td class="strong"><%= link_to_source_file(source_file) %></td>
+        <td><%= source_file[1].count %></td>
+        <td><%= source_file[1].inject(0) { |old, val| old += val.count } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

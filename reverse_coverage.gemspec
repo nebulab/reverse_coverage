@@ -28,4 +28,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry', '~> 0.12.2'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rubocop', '~> 0.67.2'
+  spec.add_development_dependency 'rubocop-performance', '~> 1.1.0'
+  spec.add_development_dependency 'rubocop-rspec', '~> 1.32.0'
+  spec.add_development_dependency 'sass', '~> 3.7.4' # TODO: replace with sassc
+  spec.add_development_dependency 'sprockets', '~> 3.7.2'
 end

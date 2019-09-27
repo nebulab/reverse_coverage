@@ -1,0 +1,30 @@
+<% result_data = source_file[1].sort_by { |k, v| k }.to_h %>
+<% lines = result_data.keys %>
+<div class="source_table" id="<%= id source_file %>">
+  <div class="header">
+    <h3><%= shortened_filename source_file %></h3>
+    <h4><%= lines.count %> covered lines</h4>
+  </div>
+
+  <pre>
+    <ol>
+      <% readfile(source_file).each_with_index do |line, line_number| %>
+        <% covered = lines.include?(line_number) %>
+        <% attrs = covered ? " class=\"covered\" title=\"#{result_data[line_number].count} examples\"" : ' class="never"' %>
+        <li data-linenumber="<%= line_number %>"<%= attrs %>>
+          <code class="ruby"><%= CGI.escapeHTML(line.chomp) %></code>
+          <% if covered %>
+            <div class="reverse_coverage">
+              <% result_data[line_number].each do |example_data| %>
+                <div class="example_data">
+                  <div class="full_description"><%= example_data[:full_description] %></div>
+                  <div class="file_path"><%= example_data[:file_path] %>:<%= example_data[:line_number] %></div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ol>
+  </pre>
+</div>

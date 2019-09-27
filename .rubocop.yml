@@ -4,5 +4,16 @@ require:
 inherit_from:
   - https://relaxed.ruby.style/rubocop.yml
 
-# Style/FrozenStringLiteralComment:
-#   Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+    - db/seeds/**/*
+    - spec/**/*
+
+RSpec/MultipleExpectations:
+  Max: 5
+  # Default is 1
+
+RSpec/ExampleLength:
+  Max: 20
+  # Default is 5
