@@ -34,7 +34,9 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    ReverseCoverage::Main.save_results('tmp/reverse_coverage.yml')
+    ReverseCoverage::Main.save_results
+    coverage_matrix = ReverseCoverage::Main.coverage_matrix
+    ReverseCoverage::Formatters::HTML::Formatter.new.format(coverage_matrix)
   end
 end
 ```
