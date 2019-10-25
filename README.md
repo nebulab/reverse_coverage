@@ -1,14 +1,12 @@
-[![Gem Version](https://badge.fury.io/rb/reverse_coverage.svg)](https://badge.fury.io/rb/reverse_coverage)
-
 # ReverseCoverage
 
-The goal of this gem is to find what Rspec examples "cover" the sources' lines of a Ruby project.
+The goal of this component is to find what Rspec examples "cover" the sources' lines of a Ruby project.
 
 This is useful when you need override methods of a parent product or to check how a specific line is tested to replicate a spec.
 
 ## Installation
 
-Add `gem 'reverse_coverage'` to your application's Gemfile and execute `bundle`.
+Add `gem 'reverse_coverage', git: 'https://github.com/nebulab/reverse_coverage.git'` to your application's Gemfile and execute `bundle`.
 
 Put the following code under you specs configuration:
 
