@@ -14,14 +14,8 @@
         <li data-linenumber="<%= line_number %>"<%= attrs %>>
           <code class="ruby"><%= CGI.escapeHTML(line.chomp) %></code>
           <% if covered %>
-            <div class="reverse_coverage">
-              <% result_data[line_number].each do |example_data| %>
-                <div class="example_data">
-                  <div class="full_description"><%= example_data[:full_description] %></div>
-                  <div class="file_path"><%= example_data[:file_path] %>:<%= example_data[:line_number] %></div>
-                </div>
-              <% end %>
-            </div>
+            <% example_refs = result_data[line_number].map {|e| e[:example_ref] } %>
+            <div class="reverse_coverage" data-example-refs="<%= example_refs.join(',') %>"></div>
           <% end %>
         </li>
       <% end %>
