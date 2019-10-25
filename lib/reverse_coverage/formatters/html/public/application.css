@@ -581,6 +581,9 @@ pre .tex .formula {
         .cboxSlideshow_on #cboxSlideshow:hover{background-position:-150px 0px;}
         .cboxSlideshow_off #cboxSlideshow{background-position:-150px -25px; right:27px;}
         .cboxSlideshow_off #cboxSlideshow:hover{background-position:-125px 0px;}
+/* https://github.com/justinchmura/js-treeview/blob/1.1.5/src/treeview.css */
+
+
 .tree-leaf { position: relative; }
 .tree-leaf .tree-child-leaves { display: block; margin-left: 15px; }
 .tree-leaf .hidden { display: none; }
