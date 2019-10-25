@@ -591,6 +591,7 @@ pre .tex .formula {
 .tree-leaf .tree-leaf-text:hover { color: blue; }
 .tree-leaf .tree-leaf-content:before, .tree-leaf .tree-leaf-content:after { content: " "; display: table; }
 .tree-leaf .tree-leaf-content:after { clear: both; }
+@charset "UTF-8";
 #loading {
   position: fixed;
   left: 40%;
@@ -781,6 +782,8 @@ td {
 .yellow {
   color: #da0; }
 
+.source_table pre li {
+  padding: 2px 0 0 0; }
 .source_table .covered {
   border-color: #090; }
 .source_table .missed {
@@ -808,14 +811,27 @@ td {
 .source_table .skipped:nth-child(even) {
   background-color: #FBFfCf; }
 .source_table .reverse_coverage {
-  color: #222;
-  display: none; }
+  background: #fed;
+  color: #333;
+  display: none;
+  padding: 2px 6px; }
   .source_table .reverse_coverage > .example_data:nth-child(odd) {
     background-color: #FBF0C0; }
   .source_table .reverse_coverage > .example_data:nth-child(even) {
     background-color: #FBFfCf; }
   .source_table .reverse_coverage > .example_data > .file_path {
     padding-left: 14px; }
+
+.tree-leaf .tree-child-leaves {
+  border-left: 1px dashed #bbb;
+  padding-left: 11px;
+  margin-left: 4px; }
+
+.tree-expando.hidden + .tree-leaf-text {
+  color: #000;
+  font-weight: bold; }
+  .tree-expando.hidden + .tree-leaf-text:before {
+    content: "↳ "; }
 
 
 
