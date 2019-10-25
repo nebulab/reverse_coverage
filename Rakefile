@@ -17,6 +17,7 @@ namespace :assets do
     assets.append_path "#{base_path}/assets/javascripts"
     assets.append_path "#{base_path}/assets/stylesheets"
     assets["application.js"].write_to("#{base_path}/public/application.js")
+    assets["settings.js"].write_to("#{base_path}/public/settings.js")
     assets["application.css"].write_to("#{base_path}/public/application.css")
   end
 end
