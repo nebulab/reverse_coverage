@@ -2,23 +2,15 @@
 
 # ReverseCoverage
 
-Statistics on spec coverage
+The goal of this gem is to find what Rspec examples "cover" the sources' lines of a Ruby project.
+
+This is useful when you need override methods of a parent product or to check how a specific line is tested to replicate a spec.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add `gem 'reverse_coverage'` to your application's Gemfile and execute `bundle`.
 
-```ruby
-gem 'reverse_coverage'
-```
-
-And then execute:
-
-```console
-$ bundle
-```
-
-Put the following code under you specs configuration
+Put the following code under you specs configuration:
 
 ```ruby
 require 'reverse_coverage'
@@ -34,14 +26,20 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    ReverseCoverage::Main.save_results('tmp/reverse_coverage.yml')
+    ReverseCoverage::Main.save_results
+    coverage_matrix = ReverseCoverage::Main.coverage_matrix
+    ReverseCoverage::Formatters::HTML::Formatter.new.format(coverage_matrix)
   end
 end
 ```
 
 ## Usage
 
-Run your specs, inspect the 'tmp/reverse_coverage.yml' file.
+Run your specs, inspect the 'tmp/reverse_coverage.yml' file or open 'tmp/index.html' file.
+
+## Options
+
+- `file_filter`: allows to set a lambda to filter what files belongs to the project. Example (to add before `ReverseCoverage::Main.start` line): `ReverseCoverage::Main.config[:file_filter] = ->(file_path) { file_path.include? 'faked_project' }`
 
 ## Contributing
 
@@ -49,7 +47,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/nebula
 
 ## Testing
 
-`bundle exec rspec`
+Execute `bundle exec rspec` on the component root path, specs are based on an internal fake project.
 
 ## License
 
