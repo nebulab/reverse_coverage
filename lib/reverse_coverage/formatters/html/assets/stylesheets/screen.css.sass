@@ -190,6 +190,9 @@ td
   color: #da0
 
 .source_table
+  pre li
+    padding: 2px 0 0 0
+
   .covered
     border-color: #090
   .missed
@@ -221,8 +224,10 @@ td
       background-color: #FBFfCf
 
   .reverse_coverage
-    color: #222
+    background: #fed
+    color: #333
     display: none
+    padding: 2px 6px
     >.example_data
       &:nth-child(odd)
         background-color: #FBF0C0
@@ -230,3 +235,15 @@ td
         background-color: #FBFfCf
       >.file_path
         padding-left: 14px
+
+.tree-leaf .tree-child-leaves
+  border-left: 1px dashed #bbb
+  padding-left: 11px
+  margin-left: 4px
+
+.tree-expando.hidden + .tree-leaf-text
+  color: #000
+  font-weight: bold
+
+  &:before
+    content: '↳ '
