@@ -27,6 +27,14 @@ module ReverseCoverage
           "Coverage report generated for #{result.count} files to #{output_path}."
         end
 
+        def asset_output_path
+          return @asset_output_path if defined?(@asset_output_path) && @asset_output_path
+
+          @asset_output_path = File.join(output_path, "assets", ReverseCoverage::VERSION)
+          FileUtils.mkdir_p(@asset_output_path)
+          @asset_output_path
+        end
+
         private
 
         # Returns the an erb instance for the template of given name
@@ -36,14 +44,6 @@ module ReverseCoverage
 
         def output_path
           ReverseCoverage::Main.output_path
-        end
-
-        def asset_output_path
-          return @asset_output_path if defined?(@asset_output_path) && @asset_output_path
-
-          @asset_output_path = File.join(output_path, "assets", ReverseCoverage::VERSION)
-          FileUtils.mkdir_p(@asset_output_path)
-          @asset_output_path
         end
 
         def assets_path(name)
