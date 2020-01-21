@@ -6,6 +6,8 @@ The goal of this component is to find what RSpec examples "cover" one or more li
 
 This is useful for example when you override methods of a parent product and you want to check what/how the specs treat the original lines.
 
+Blog post introduction: [https://nebulab.it/blog/reverse-coverage/](https://nebulab.it/blog/reverse-coverage/)
+
 ## Installation
 
 Add `gem 'reverse_coverage'` to your application's Gemfile and execute `bundle`.
