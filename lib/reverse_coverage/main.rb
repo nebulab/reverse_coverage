@@ -29,10 +29,8 @@ module ReverseCoverage
         lines.each_with_index do |changed, line_index|
           next if changed.nil? || changed.zero?
 
-          file_info = { file_path: file_path, line_index: line_index }
-
-          save_changes(changes, example_data, file_info)
-          save_changes(coverage_matrix, example_data, file_info)
+          save_changes(changes, example_data, file_path: file_path, line_index: line_index)
+          save_changes(coverage_matrix, example_data, file_path: file_path, line_index: line_index)
         end
       end
 
