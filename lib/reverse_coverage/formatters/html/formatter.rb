@@ -58,7 +58,35 @@ module ReverseCoverage
         end
 
         def readfile(source_file)
-          File.open(filename(source_file), "rb", &:readlines)
+          load_source(filename(source_file))
+        end
+
+        def load_source(file_name)
+          lines = []
+          # The default encoding is UTF-8
+          File.open(file_name, "rb:UTF-8") do |file|
+            line = file.gets
+
+            # Check for shbang
+            if /\A#!/.match?(line)
+              lines << line
+              line = file.gets
+            end
+            return lines unless line
+
+            check_magic_comment(file, line)
+            lines.concat([line], file.readlines)
+          end
+
+          lines
+        end
+
+        def check_magic_comment(file, line)
+          # Check for encoding magic comment
+          # Encoding magic comment must be placed at first line except for shbang
+          if (match = /\A#\s*(?:-\*-)?\s*(?:en)?coding:\s*(\S+)\s*(?:-\*-)?\s*\z/.match(line))
+            file.set_encoding(match[1], "UTF-8")
+          end
         end
 
         def grouped(files)
