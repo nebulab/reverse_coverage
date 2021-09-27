@@ -65,6 +65,7 @@ module ReverseCoverage
           grouped = {}
           grouped_files = []
 
+          # TODO Someday / Maybe. Make this list configurable
           groups = {
             'Controllers' => %r{/app/controllers},
             'Channels' => %r{/app/channels},
@@ -72,7 +73,10 @@ module ReverseCoverage
             'Mailers' => %r{/app/mailers},
             'Helpers' => %r{/app/helpers},
             'Jobs' => %r{/app/jobs|/app/workers},
-            'Libraries' => %r{/lib/}
+            'Libraries' => %r{/lib/},
+            'Interactors' => %r{/app/interactors},
+            'Services' => %r{/app/services},
+            'Validators' => %r{/app/validators},
           }
 
           groups.each do |name, filter|
