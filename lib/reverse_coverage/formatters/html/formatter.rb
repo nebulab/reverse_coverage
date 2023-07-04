@@ -101,10 +101,7 @@ module ReverseCoverage
             'Mailers' => %r{/app/mailers},
             'Helpers' => %r{/app/helpers},
             'Jobs' => %r{/app/jobs|/app/workers},
-            'Libraries' => %r{/lib/},
-            'Interactors' => %r{/app/interactors},
-            'Services' => %r{/app/services},
-            'Validators' => %r{/app/validators},
+            'Libraries' => %r{/lib/}
           }
 
           groups.each do |name, filter|
